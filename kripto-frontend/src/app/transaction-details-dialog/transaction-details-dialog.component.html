@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Transaction Details</h1>
+<div mat-dialog-content class="dialog-content">
+  <div class="section">
+    <h3>Transaction Info</h3>
+    <div class="info-grid">
+      <div class="info-item full-row"><strong>Transaction ID:</strong> {{ data.m.txid }}</div>
+
+      <div class="info-item full-row"><strong>Block Hash:</strong> {{ data.m.blockhash }}</div>
+
+      <div class="info-item"><strong>Size:</strong> {{ data.m.size }} bytes</div>
+      <div class="info-item"><strong>Weight:</strong> {{ data.m.weight }}</div>
+      <div class="info-item"><strong>Version:</strong> {{ data.m.version }}</div>
+      <div class="info-item"><strong>Confirmations:</strong> {{ data.m.confirmations }}</div>
+      <div class="info-item"><strong>Time:</strong> {{ data.m.time * 1000 | date:'medium' }}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Inputs</h3>
+    <div *ngIf="data.m.vin.length > 0; else coinbaseTemplate">
+      <div *ngFor="let input of data.m.vin" class="io-card">
+        <div *ngIf="!input.coinbase">
+          <p><strong>Input Address:</strong> {{ input.address || 'Unknown' }}</p>
+          <p><strong>Input Value:</strong> {{ input.value || 'Unknown' }} BTC</p>
+        </div>
+      </div>
+    </div>
+    <ng-template #coinbaseTemplate>
+      <p class="coinbase">This is a coinbase transaction (no inputs).</p>
+    </ng-template>
+  </div>
+
+  <div class="section">
+    <h3>Outputs</h3>
+    <div *ngFor="let output of data.m.vout" class="io-card">
+      <p><strong>Output Address:</strong> {{ output.scriptPubKey?.address || 'Unknown' }}</p>
+      <p><strong>Output Value:</strong> {{ output.value }} BTC</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Transaction Fee</h3>
+    <p><strong>Fee:</strong> {{ calculateTransactionFee(data.m.vin, data.m.vout) }} BTC</p>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
