@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="top-bar" *ngIf="blockchainInfo">
+    <div class="dropdown-wrapper">
+      <select [(ngModel)]="selectedBlockchain" class="blockchain-dropdown icon-select">
+        <option value="bitcoin_mainnet">Bitcoin Mainnet</option>
+        <option value="bitcoin_testnet">Bitcoin Testnet</option>
+        <option value="litecoin_mainnet">Litecoin Mainnet</option>
+      </select>
+    </div>
+
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery"
+      class="search-bar-top"
+      placeholder="Search again..."
+    />
+    <button (click)="searchBlockchain()" class="search-button-small">Search</button>
+  </div>
+
+  <div class="search-container" *ngIf="!blockchainInfo">
+    <div class="top-bar">
+      <div class="dropdown-wrapper">
+        <select [(ngModel)]="selectedBlockchain" class="blockchain-dropdown icon-select">
+          <option value="bitcoin_mainnet">Bitcoin Mainnet</option>
+          <option value="bitcoin_testnet">Bitcoin Testnet</option>
+          <option value="litecoin_mainnet">Litecoin Mainnet</option>
+        </select>
+      </div>
+    </div>
+    <h1>Blockchain Explorer</h1>
+    <input 
+      type="text" 
+      placeholder="Enter txid, block height, or address" 
+      [(ngModel)]="searchQuery" 
+      class="search-input"
+    />
+    <button (click)="searchBlockchain()" class="search-button">Search</button>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>

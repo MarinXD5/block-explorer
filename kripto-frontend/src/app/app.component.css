@@ -1,0 +1,84 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.search-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.search-input, .search-bar-top {
+  width: 40%;
+  padding: 0.75rem;
+  margin-right: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button, .search-button-small {
+  padding: 0.75rem 1.5rem;
+  background-color: #ffbb00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-container {
+  margin-top: 6rem;
+  width: 70%;
+}
+
+.block-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.block-details p {
+  margin: 0.5rem 0;
+}
+
+.tx-item {
+  background-color: #f1f1f1;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+}
+
+.show-more {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 2rem;
+}
