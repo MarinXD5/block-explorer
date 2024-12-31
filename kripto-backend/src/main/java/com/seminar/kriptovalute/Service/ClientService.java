@@ -20,11 +20,11 @@ public class ClientService {
         litecoinClient = new BitcoinJSONRPCClient("http://student:n24PaIR7EwPyeMi1GB6cx4bVt1R24fZ8xl2jd8kr2REi2i8Tn@blockchain.oss.unist.hr:53012");
     }
 
-    public BitcoindRpcClient.BlockChainInfo getBlockchainInfo(String blockchain) throws Exception {
+    public BitcoindRpcClient.BlockChainInfo getBlockchainInfo(String blockchain) {
         return getClient(blockchain).getBlockChainInfo();
     }
 
-    public Object searchBlockchain(String blockchain, String query) throws Exception {
+    public Object searchBlockchain(String blockchain, String query) {
         BitcoinJSONRPCClient client = getClient(blockchain);
 
         try {
@@ -50,5 +50,10 @@ public class ClientService {
             case "litecoin_mainnet" -> litecoinClient;
             default -> throw new IllegalArgumentException("Unknown blockchain: " + blockchain);
         };
+    }
+
+    public BitcoindRpcClient.RawTransaction getTransactionDetails(String blockchain, String txId) {
+        BitcoinJSONRPCClient client = getClient(blockchain);
+        return client.getRawTransaction(txId);
     }
 }

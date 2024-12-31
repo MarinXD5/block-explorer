@@ -21,16 +21,26 @@ export class AppComponent {
 
   searchBlockchain() {
     if (this.searchQuery) {
-      const apiUrl = `${this.baseUrl}/api/blockchain/search?query=${this.searchQuery}&blockchain=${this.selectedBlockchain}`;
+      const apiUrl =
+      this.isTransactionId(this.searchQuery)
+        ? `${this.baseUrl}/api/blockchain/transaction?blockchain=${this.selectedBlockchain}&txId=${this.searchQuery}`
+        : `${this.baseUrl}/api/blockchain/search?query=${this.searchQuery}&blockchain=${this.selectedBlockchain}`;
+  
+      localStorage.setItem('selectedBlockchain', this.selectedBlockchain);
 
       this.http.get(apiUrl, { responseType: 'json' }).subscribe({
         next: (data: any) => {
-          this.blockchainInfo = data.m;
-          //console.log(this.blockchainInfo);
-          if (this.blockchainInfo.height) {
-            this.router.navigate(['/block', this.selectedBlockchain, this.blockchainInfo.height]);
+          if (this.isTransactionId(this.searchQuery)) {
+            this.router.navigate(['/transaction-details']);
+            localStorage.setItem("transactionInfo", JSON.stringify(data.m));
           }
-
+          this.blockchainInfo = data.m;
+          localStorage.setItem("blockchainInfo", JSON.stringify(this.blockchainInfo));
+          if (this.blockchainInfo.height) {
+            this.router.navigate(
+              ['/block', this.selectedBlockchain, this.blockchainInfo.height],
+            );
+          }
           this.cdf.detectChanges();
         },
         error: (err) => {
@@ -39,5 +49,9 @@ export class AppComponent {
         },
       });
     }
+  }
+
+  isTransactionId(query: string): boolean {
+    return /^[0-9a-fA-F]{64}$/.test(query);
   }
 }

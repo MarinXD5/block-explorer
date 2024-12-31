@@ -1,32 +1,32 @@
 <div class="block-container">
-    <mat-card class="block-card">
-      <mat-card-header>
-        <mat-card-title>
-          Block #{{ block.height }}
-          <span class="hash">({{ block.hash | slice:0:12 }}...)</span>
-        </mat-card-title>
-        <mat-card-subtitle>
-          Confirmations: {{ block.confirmations }} | Transactions: {{ block.nTx }}
-        </mat-card-subtitle>
-      </mat-card-header>
-  
-      <mat-card-content>
-        <div class="details-grid">
-          <div><strong>Version:</strong> {{ block.version }}</div>
-          <div><strong>Difficulty:</strong> {{ block.difficulty | number }}</div>
-          <div><strong>Nonce:</strong> {{ block.nonce }}</div>
-          <div><strong>Merkle Root:</strong> <span class="mono">{{ block.merkleroot }}</span></div>
-          <div><strong>Time:</strong> {{ block.time * 1000 | date:'medium' }}</div>
-          <div><strong>Size:</strong> {{ block.size | number }} bytes</div>
-        </div>
-      </mat-card-content>
-  
-      <mat-divider></mat-divider>
-  
+  <mat-card class="block-card">
+    <div class="block-layout">
+      <div class="block-info">
+        <mat-card-header>
+          <mat-card-title>
+            Block #{{ blockchainInfo.height }}
+            <span class="hash">({{ blockchainInfo.hash | slice:0:12 }}...)</span>
+          </mat-card-title>
+          <mat-card-subtitle>
+            Confirmations: {{ blockchainInfo.confirmations }} | Transactions: {{ blockchainInfo.nTx }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="details-grid">
+            <div><strong>Version:</strong> {{ blockchainInfo.version }}</div>
+            <div><strong>Difficulty:</strong> {{ blockchainInfo.difficulty | number }}</div>
+            <div><strong>Nonce:</strong> {{ blockchainInfo.nonce }}</div>
+            <div><strong>Merkle Root:</strong> <span class="mono">{{ blockchainInfo.merkleroot }}</span></div>
+            <div><strong>Time:</strong> {{ blockchainInfo.time * 1000 | date:'medium' }}</div>
+            <div><strong>Size:</strong> {{ blockchainInfo.size | number }} bytes</div>
+          </div>
+        </mat-card-content>
+      </div>
+
       <div class="tx-section">
-        <h3>Transactions ({{ block.tx.length }})</h3>
+        <h3>Transactions ({{ blockchainInfo.tx.length }})</h3>
         <mat-accordion>
-          <mat-expansion-panel *ngFor="let tx of paginatedTx; let i = index">
+          <mat-expansion-panel *ngFor="let tx of paginatedTx; let i = index" (click)="fetchTransactionDetails(tx)">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{ tx | slice:0:12 }}...{{ tx | slice:-12 }}
@@ -36,12 +36,18 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
             <p class="mono">{{ tx }}</p>
-            <button mat-button (click)="copyToClipboard(tx)">
+            <button mat-button (click)="copyToClipboard(tx); $event.stopPropagation()">
               Copy TXID
             </button>
           </mat-expansion-panel>
+
+          <button *ngIf="paginatedTx.length < blockchainInfo.tx.length"
+                  class="load-more-btn"
+                  (click)="loadMoreTx()">
+            Load More Transactions
+          </button>
         </mat-accordion>
       </div>
-    </mat-card>
-  </div>
-  
+    </div>
+  </mat-card>
+</div>

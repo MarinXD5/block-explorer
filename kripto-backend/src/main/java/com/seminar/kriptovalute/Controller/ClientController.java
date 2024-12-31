@@ -29,4 +29,12 @@ public class ClientController {
     ) throws Exception {
         return clientService.searchBlockchain(blockchain, query);
     }
+
+    @GetMapping("/transaction")
+    public BitcoindRpcClient.RawTransaction getTransactionDetails(
+            @RequestParam String blockchain,
+            @RequestParam String txId
+    ) {
+        return clientService.getTransactionDetails(blockchain, txId);
+    }
 }
