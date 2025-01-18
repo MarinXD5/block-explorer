@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  height: 100vh;
+  position: relative;
+  padding-top: 5rem;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex !important;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.dropdown-wrapper {
+  margin-right: 1rem;
+}
+
+.blockchain-dropdown {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.search-container-top {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-input-centered {
+  width: 40%;
+  padding: 0.75rem;
+  margin-right: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-button-centered {
+  padding: 0.75rem 1.5rem;
+  background-color: #ffbb00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.blocks-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider-track {
+  display: flex;
+  will-change: transform;
+}
+
+.slider-item {
+  flex: 0 0 300px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btn:first-of-type {
+  left: 10px;
+}
+
+.btn:last-of-type {
+  right: 10px;
+}
+
+.latest-blocks-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.latest-block {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 200px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.latest-block strong {
+  display: block;
+  margin-bottom: 5px;
+}

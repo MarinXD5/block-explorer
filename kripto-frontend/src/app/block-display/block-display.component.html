@@ -1,0 +1,80 @@
+<div class="block-container">
+  <mat-card class="block-card">
+    <div class="block-layout">
+      <div class="block-header">
+        <button mat-button *ngIf="blockchainInfo.previousblockhash" class="nav-btn" (click)="navigateToBlock(blockchainInfo.previousblockhash)">
+          Previous Block
+        </button>
+        <h3 class="block-title">Block Information</h3>
+        <button mat-button *ngIf="blockchainInfo.nextblockhash" class="nav-btn" (click)="navigateToBlock(blockchainInfo.nextblockhash)">
+          Next Block
+        </button>
+      </div>
+
+      <div class="block-info">
+        <div class="info-grid">
+          <mat-card class="info-card important">
+            <mat-card-title>Block Height</mat-card-title>
+            <mat-card-content>{{ blockchainInfo.height }}</mat-card-content>
+          </mat-card>
+
+          <mat-card class="info-card important">
+            <mat-card-title>Block Hash</mat-card-title>
+            <mat-card-content class="mono">{{ blockchainInfo.hash }}</mat-card-content>
+          </mat-card>
+
+          <mat-card class="info-card">
+            <mat-card-title>Version</mat-card-title>
+            <mat-card-content>{{ blockchainInfo.version }}</mat-card-content>
+          </mat-card>
+          <mat-card class="info-card">
+            <mat-card-title>Difficulty</mat-card-title>
+            <mat-card-content>{{ blockchainInfo.difficulty | number }}</mat-card-content>
+          </mat-card>
+          <mat-card class="info-card">
+            <mat-card-title>Nonce</mat-card-title>
+            <mat-card-content>{{ blockchainInfo.nonce }}</mat-card-content>
+          </mat-card>
+          <mat-card class="info-card">
+            <mat-card-title>Merkle Root</mat-card-title>
+            <mat-card-content class="mono">{{ blockchainInfo.merkleroot }}</mat-card-content>
+          </mat-card>
+          <mat-card class="info-card">
+            <mat-card-title>Time</mat-card-title>
+            <mat-card-content>{{ blockchainInfo.time * 1000 | date:'medium' }}</mat-card-content>
+          </mat-card>
+          <mat-card class="info-card">
+            <mat-card-title>Size</mat-card-title>
+            <mat-card-content>{{ blockchainInfo.size | number }} bytes</mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <div class="tx-section">
+        <h3>Transactions ({{ blockchainInfo.tx.length }})</h3>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let tx of paginatedTx; let i = index" (click)="fetchTransactionDetails(tx)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ tx | slice:0:12 }}...{{ tx | slice:-12 }}
+              </mat-panel-title>
+              <mat-panel-description>
+                Transaction #{{ i + 1 }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p class="mono">{{ tx }}</p>
+            <button mat-button (click)="copyToClipboard(tx); $event.stopPropagation()">
+              Copy TXID
+            </button>
+          </mat-expansion-panel>
+          
+          <button *ngIf="paginatedTx.length < blockchainInfo.tx.length"
+                  class="load-more-btn"
+                  (click)="loadMoreTx()">
+            Load More Transactions
+          </button>
+        </mat-accordion>
+      </div>
+    </div>
+  </mat-card>
+</div>

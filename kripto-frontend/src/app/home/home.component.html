@@ -1,0 +1,65 @@
+<div class="content">
+    <div class="blockchain-info">
+      <div class="latest-blocks">
+        <h3>Latest Blocks</h3>
+        <div class="latest-blocks-container">
+          <div class="latest-block" *ngFor="let block of blockchainData?.latestBlocks">
+                <strong>Height:</strong>
+                <a (click)="goToBlock(block.height)" class="clickable">{{ block.height }}</a>
+                <strong>Hash:</strong>
+                <a (click)="goToBlock(block.hash)" class="clickable">{{ block.hash }}</a>
+                <strong>Time:</strong> {{ block.time | date: 'dd.MM.yyyy - HH:mm:ss' }}          
+              </div>
+        </div>
+      </div>
+    </div>
+  
+      <div class="coin-values">
+        <div class="value-item" [ngClass]="{'greater': isGreater(blockchainData?.bitcoinValue, previousBitcoinValue!), 'less': isLess(blockchainData?.bitcoinValue, previousBitcoinValue!)}">
+          <strong>Bitcoin Value (USD):</strong>
+          <span>
+            ${{ blockchainData?.bitcoinValue | number:'1.2-2' }}
+            <span *ngIf="isGreater(blockchainData?.bitcoinValue, previousBitcoinValue!)" class="triangle-up"></span>
+            <span *ngIf="isLess(blockchainData?.bitcoinValue, previousBitcoinValue!)" class="triangle-down"></span>
+          </span>
+        </div>
+        
+        <div class="value-item" [ngClass]="{'greater': isGreater(blockchainData?.litecoinValue, previousLitecoinValue!), 'less': isLess(blockchainData?.litecoinValue, previousLitecoinValue!)}">
+          <strong>Litecoin Value (USD):</strong>
+          <span>
+            ${{ blockchainData?.litecoinValue | number:'1.2-2' }}
+            <span *ngIf="isGreater(blockchainData?.litecoinValue, previousLitecoinValue!)" class="triangle-up"></span>
+            <span *ngIf="isLess(blockchainData?.litecoinValue, previousLitecoinValue!)" class="triangle-down"></span>
+          </span>
+        </div>
+      </div>
+  
+    <div class="blocks-slider">
+      <h3>Blocks Mined in the Last 24 Hours</h3>
+      <div 
+        class="slider-container" 
+        (mousedown)="startDragging($event)" 
+        (mousemove)="dragSlider($event)" 
+        (mouseup)="stopDragging()" 
+        (mouseleave)="stopDragging()"
+      >
+        <div
+          class="slider-track"
+          [style.transform]="sliderTransform"
+          [style.transition]="isDragging ? 'none' : 'transform 0.5s ease-out'"
+        >
+          <div class="slider-item" *ngFor="let block of blockchainData?.blocksMined24h">
+            <strong>Height:</strong> {{ block.height }}<br />
+            <strong>Hash:</strong> {{ block.hash }}<br />
+            <strong>Transactions:</strong> {{ block.numOfTransactions }}<br />
+            <strong>Time:</strong> {{ block.time | date: 'dd.MM.yyyy - HH:mm:ss' }}          
+          </div>
+        </div>
+      </div>
+      <div class="slider-buttons">
+        <button class="btn" (click)="slideLeft()">←</button>
+        <button class="btn" (click)="slideRight()">→</button>
+      </div>
+    </div>
+  </div>
+  

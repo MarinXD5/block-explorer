@@ -1,0 +1,70 @@
+.dialog-content {
+    max-height: 80vh; /* Prevent overflow of height */
+    max-width: 100%; /* Allow the content to stretch within the dialog */
+    padding: 16px;
+    overflow-y: auto; /* Scroll if content overflows vertically */
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns for grouped data */
+    gap: 10px;
+  }
+  
+  .info-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .info-item.full-row {
+    grid-column: span 5;
+    background-color: #e8f0fe;
+    font-weight: bold;
+  }
+
+  .info-item.full-row :hover {
+    cursor: pointer;
+  }
+  
+  .io-card {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .coinbase {
+    color: #ff9800;
+    font-weight: bold;
+  }
+  
+  h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
